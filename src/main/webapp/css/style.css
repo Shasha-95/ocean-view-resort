@@ -1,0 +1,178 @@
+/* --- Root Variables for Easy Branding --- */
+:root {
+    --primary-blue: #0056b3;
+    --secondary-blue: #003d80;
+    --accent-gold: #f4d03f;
+    --bg-light: #f4f7f6;
+    --text-dark: #333;
+    --white: #ffffff;
+    --danger: #d9534f;
+    --success: #28a745;
+}
+
+/* --- Base Styles --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* --- Navigation Bar --- */
+.navbar {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar h1 {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.navbar a {
+    color: var(--white);
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.navbar a:hover {
+    background: var(--secondary-blue);
+}
+
+/* --- Login Page Layout --- */
+.login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(rgba(0, 86, 179, 0.7), rgba(0, 86, 179, 0.7)),
+    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+}
+
+.login-container {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* --- Dashboard Grid --- */
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    background: var(--white);
+    padding: 30px;
+    text-align: center;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--primary-blue);
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-bottom: 4px solid var(--primary-blue);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    background-color: #f0f7ff;
+}
+
+/* --- Forms (Add Staff / Register Guest) --- */
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    color: var(--primary-blue);
+    border-bottom: 2px solid var(--bg-light);
+    padding-bottom: 10px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+button {
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.save-btn {
+    background-color: var(--success);
+    color: white;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+/* --- Tables (Reports) --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    margin-top: 20px;
+}
+
+th {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    padding: 15px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* --- Alerts & Messages --- */
+.error-msg { color: var(--danger); font-weight: bold; margin-bottom: 10px; }
+.success-msg { color: var(--success); font-weight: bold; margin-bottom: 10px; }
