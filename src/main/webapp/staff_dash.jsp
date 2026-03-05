@@ -1,16 +1,32 @@
-<div class="staff-container">
-    <h2>Staff Operations</h2>
-    <ul>
-        <li><a href="register_guest.jsp">Register Guest</a></li>
-        <li><a href="search_booking.jsp">Search/Update Booking</a></li>
-        <li><a href="calculate_bill.jsp">Calculate Bill & Print Invoice</a></li>
-    </ul>
-
-    <hr>
-    <h3>Help Section</h3>
-    <div class="help-box">
-        <%-- Loop through help_section table data here --%>
-        <p><strong>Registration:</strong> Ensure all guest fields are filled before saving.</p>
-        <p><strong>Invoicing:</strong> Verify dates before calculating the final bill.</p>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    // Security Check: Only allow logged-in Staff or Admin
+    if (session.getAttribute("role") == null) {
+        response.sendRedirect("index.jsp");
+    }
+%>
+<html>
+<head>
+    <title>Staff Dashboard | Ocean View Resort</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="navbar">
+    <h1>Ocean View Resort - Staff Portal</h1>
+    <div class="user-info">
+        <span>Welcome, ${username}</span>
+        <a href="LogoutServlet" class="logout-btn">Exit</a>
     </div>
 </div>
+
+<div class="container">
+    <h2>Reservation Management</h2>
+    <div class="action-grid">
+        <a href="register_guest.jsp" class="card">Register New Guest</a>
+        <a href="search_booking.jsp" class="card">Search / Update Booking</a>
+        <a href="calculate_bill.jsp" class="card">Calculate Bill & Invoice</a>
+        <a href="help.jsp" class="card">Help Section</a>
+    </div>
+</div>
+</body>
+</html>
