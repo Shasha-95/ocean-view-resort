@@ -59,6 +59,22 @@ public class BookingServlet extends HttpServlet {
                 }
             }
 
+            // --- ACTION: DELETE ---
+            else if ("delete".equals(action)) {
+                String sql = "DELETE FROM reservations WHERE reservation_number = ?";
+                try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                    int resId = Integer.parseInt(request.getParameter("reservation_number"));
+                    ps.setInt(1, resId);
+
+                    int rowsAffected = ps.executeUpdate();
+                    if (rowsAffected > 0) {
+                        response.sendRedirect("staff_dash.jsp?msg=deleted");
+                    } else {
+                        response.sendRedirect("delete_booking.jsp?error=notfound");
+                    }
+                }
+            }
+
         } catch (NumberFormatException e) {
             System.err.println("Input Error: " + e.getMessage());
             response.sendRedirect("staff_dash.jsp?msg=invalid_input");
