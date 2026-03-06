@@ -55,7 +55,7 @@
 
             <div>
                 <label>Contact Number</label>
-                <input type="tel" name="contact" placeholder="" required>
+                <input type="tel" name="contact" placeholder="  " required>
             </div>
 
             <div class="full-width">

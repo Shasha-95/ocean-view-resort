@@ -16,6 +16,7 @@
             --accent-gold: #c5a059;
             --bg-light: #f4f7f6;
             --white: #ffffff;
+            --danger-red: #e74c3c;
         }
 
         body {
@@ -25,101 +26,116 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            /* Using the same background image for a seamless transition */
+            min-height: 100vh;
             background: linear-gradient(rgba(244, 247, 246, 0.85), rgba(244, 247, 246, 0.85)),
             url('images/oceanviewr.jpg');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
         }
 
         .staff-container {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(15px);
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             width: 90%;
-            max-width: 900px;
+            max-width: 1000px;
             text-align: center;
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
         h2 {
             color: var(--ocean-blue);
             margin-bottom: 10px;
-            font-size: 2rem;
+            font-size: 2.2rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
 
         .welcome-text {
-            color: #555;
+            color: #444;
             margin-bottom: 35px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
 
         .welcome-text strong {
             color: var(--accent-gold);
+            border-bottom: 1px solid var(--accent-gold);
         }
 
         .button-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
 
         .btn-card {
             background: var(--white);
-            border: 1px solid #eee;
-            padding: 30px 20px;
-            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 25px 15px;
+            border-radius: 15px;
             text-decoration: none;
             color: var(--ocean-blue);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .btn-card i {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: var(--accent-gold);
+            transition: 0.3s;
         }
 
         .btn-card span {
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.95rem;
+            text-transform: capitalize;
         }
 
+        /* Hover Effects */
         .btn-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 20px rgba(0,51,102,0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0,51,102,0.2);
             background-color: var(--ocean-blue);
             color: white;
         }
 
         .btn-card:hover i {
-            color: white;
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        /* Red hover specifically for Delete */
+        .btn-card.delete-action:hover {
+            background-color: var(--danger-red);
         }
 
         .logout-section {
-            margin-top: 35px;
-            border-top: 1px solid #ddd;
-            padding-top: 20px;
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(0,0,0,0.1);
         }
 
         .logout-btn {
-            color: #e74c3c;
+            color: var(--danger-red);
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 30px;
             transition: 0.3s;
+            display: inline-block;
         }
 
         .logout-btn:hover {
-            text-decoration: underline;
+            background: rgba(231, 76, 60, 0.1);
+            text-decoration: none;
         }
     </style>
 </head>
@@ -127,17 +143,27 @@
 
 <div class="staff-container">
     <h2><i class="fas fa-concierge-bell"></i> Staff Portal</h2>
-    <p class="welcome-text">Welcome back, <strong>${userFullName}</strong></p>
+    <p class="welcome-text">Logged in as: <strong>${userFullName}</strong></p>
 
     <div class="button-grid">
         <a href="register_guest.jsp" class="btn-card">
-            <i class="fas fa-user-check"></i>
+            <i class="fas fa-user-plus"></i>
             <span>Register Guest</span>
         </a>
 
         <a href="search_booking.jsp" class="btn-card">
-            <i class="fas fa-search-location"></i>
-            <span>Manage Bookings</span>
+            <i class="fas fa-search"></i>
+            <span>Search Booking</span>
+        </a>
+
+        <a href="update_booking.jsp" class="btn-card">
+            <i class="fas fa-edit"></i>
+            <span>Update Booking</span>
+        </a>
+
+        <a href="delete_booking.jsp" class="btn-card delete-action">
+            <i class="fas fa-trash-alt"></i>
+            <span>Delete Booking</span>
         </a>
 
         <a href="calculate_bill.jsp" class="btn-card">
@@ -146,14 +172,14 @@
         </a>
 
         <a href="help.jsp" class="btn-card">
-            <i class="fas fa-info-circle"></i>
+            <i class="fas fa-question-circle"></i>
             <span>System Help</span>
         </a>
     </div>
 
     <div class="logout-section">
         <a href="LogoutServlet" class="logout-btn">
-            <i class="fas fa-sign-out-alt"></i> Exit System
+            <i class="fas fa-sign-out-alt"></i> Secure Logout
         </a>
     </div>
 </div>
