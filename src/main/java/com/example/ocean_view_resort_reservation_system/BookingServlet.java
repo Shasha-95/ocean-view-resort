@@ -21,10 +21,10 @@ public class BookingServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         try (Connection conn = DBConnection.getConnection()) {
-            if ("register".equals(action)) {
-                // SQL matches your 'reservations' table exactly
-                String sql = "INSERT INTO reservations (guest_name, address, country, contact_number, room_type_id, check_in_date, check_out_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
+            // --- ACTION: REGISTER ---
+            if ("register".equals(action)) {
+                String sql = "INSERT INTO reservations (guest_name, address, country, contact_number, room_type_id, check_in_date, check_out_date) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
                     ps.setString(1, request.getParameter("guest_name"));
                     ps.setString(2, request.getParameter("address"));
@@ -34,23 +34,37 @@ public class BookingServlet extends HttpServlet {
                     ps.setString(6, request.getParameter("check_in"));
                     ps.setString(7, request.getParameter("check_out"));
 
-                    int rowsAffected = ps.executeUpdate();
-
-                    if (rowsAffected > 0) {
-                        // Redirect to dashboard with a success flag
+                    if (ps.executeUpdate() > 0) {
                         response.sendRedirect("staff_dash.jsp?msg=success");
                     } else {
                         response.sendRedirect("register_guest.jsp?error=failed");
                     }
                 }
             }
+
+            // --- ACTION: UPDATE ---
+            else if ("update".equals(action)) {
+                String sql = "UPDATE reservations SET guest_name=?, address=?, country=?, contact_number=?, check_in_date=?, check_out_date=? WHERE reservation_number=?";
+                try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                    ps.setString(1, request.getParameter("guest_name"));
+                    ps.setString(2, request.getParameter("address"));
+                    ps.setString(3, request.getParameter("country"));
+                    ps.setString(4, request.getParameter("contact"));
+                    ps.setString(5, request.getParameter("check_in"));
+                    ps.setString(6, request.getParameter("check_out"));
+                    ps.setInt(7, Integer.parseInt(request.getParameter("reservation_number")));
+
+                    ps.executeUpdate();
+                    response.sendRedirect("staff_dash.jsp?msg=updated");
+                }
+            }
+
         } catch (NumberFormatException e) {
-            System.err.println("Invalid Room Type ID: " + e.getMessage());
-            response.sendRedirect("register_guest.jsp?error=invalid_room");
+            System.err.println("Input Error: " + e.getMessage());
+            response.sendRedirect("staff_dash.jsp?msg=invalid_input");
         } catch (SQLException e) {
             e.printStackTrace();
-            // Check if it's a Foreign Key error (e.g. room_type_id doesn't exist)
-            response.sendRedirect("register_guest.jsp?error=database_error");
+            response.sendRedirect("staff_dash.jsp?msg=db_error");
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("staff_dash.jsp?msg=error");
