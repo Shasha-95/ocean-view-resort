@@ -13,22 +13,32 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-light);
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            /* Updated to include the faded background image */
+            background: linear-gradient(rgba(244, 247, 246, 0.85), rgba(244, 247, 246, 0.85)),
+            url('images/oceanviewr.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
         .admin-container {
-            background: var(--white);
+            /* Glassmorphism effect: Semi-transparent white with blur */
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            width: 90%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 95%;
             max-width: 850px;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         h2 {
@@ -50,7 +60,7 @@
 
         .button-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+            grid-template-columns: repeat(3, 1fr);
             gap: 25px;
             margin-top: 20px;
         }
@@ -93,7 +103,7 @@
 
         .logout-section {
             margin-top: 40px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid #ddd;
             padding-top: 20px;
         }
 
@@ -111,9 +121,9 @@
         .logout-btn:hover {
             color: #c0392b;
             transform: scale(1.05);
+            text-decoration: underline;
         }
 
-        /* Responsive adjustment */
         @media (max-width: 768px) {
             .button-grid {
                 grid-template-columns: 1fr;
@@ -134,8 +144,8 @@
         </a>
 
         <a href="manage_staff.jsp" class="btn-card">
-            <i class="fas fa-users-cog"></i>
-            <span>Manage Accounts</span>
+            <i class="fas fa-users-gear"></i>
+            <span>Manage Staff Accounts</span>
         </a>
 
         <a href="ReportServlet" class="btn-card">
