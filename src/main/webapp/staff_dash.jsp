@@ -46,8 +46,8 @@
             border: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* --- ALERT STYLES --- */
-        .booking-success, .update-success {
+        /* --- UNIFIED ALERT STYLES --- */
+        .alert-box {
             padding: 20px;
             margin-bottom: 25px;
             border-radius: 12px;
@@ -59,22 +59,18 @@
         }
 
         /* Register Success (Green) */
-        .booking-success {
-            background: #e6fffa;
-            border: 1px solid #38b2ac;
-            border-left: 6px solid #319795;
-            color: #234e52;
-        }
+        .success { background: #e6fffa; border: 1px solid #38b2ac; border-left: 6px solid #319795; color: #234e52; }
+        .success .icon-circle { background: #319795; }
 
-        /* Update Success (Blue) */
-        .update-success {
-            background: #ebf8ff;
-            border: 1px solid #4299e1;
-            border-left: 6px solid #2b6cb0;
-            color: #2c5282;
-        }
+        /* Update (Blue) */
+        .info { background: #ebf8ff; border: 1px solid #4299e1; border-left: 6px solid #2b6cb0; color: #2c5282; }
+        .info .icon-circle { background: #2b6cb0; }
 
-        .icon-circle, .icon-circle-blue {
+        /* Delete (Red) */
+        .danger { background: #fff5f5; border: 1px solid #feb2b2; border-left: 6px solid #e53e3e; color: #742a2a; }
+        .danger .icon-circle { background: #e53e3e; }
+
+        .icon-circle {
             color: white;
             min-width: 40px;
             height: 40px;
@@ -84,9 +80,6 @@
             justify-content: center;
             font-size: 1.2rem;
         }
-
-        .icon-circle { background: #319795; }
-        .icon-circle-blue { background: #2b6cb0; }
 
         .message-content {
             display: flex;
@@ -144,7 +137,6 @@
         .btn-card i {
             font-size: 2.2rem;
             color: var(--accent-gold);
-            transition: 0.3s;
         }
 
         .btn-card span {
@@ -196,12 +188,12 @@
 
 <div class="staff-container">
 
-    <%-- Success Message Logic --%>
+    <%-- DYNAMIC STATUS ALERTS --%>
     <%
         String msg = request.getParameter("msg");
         if ("success".equals(msg)) {
     %>
-    <div class="booking-success">
+    <div class="alert-box success">
         <div class="icon-circle"><i class="fas fa-check"></i></div>
         <div class="message-content">
             <strong>Reservation Confirmed!</strong>
@@ -209,11 +201,19 @@
         </div>
     </div>
     <% } else if ("updated".equals(msg)) { %>
-    <div class="update-success">
-        <div class="icon-circle-blue"><i class="fas fa-sync-alt"></i></div>
+    <div class="alert-box info">
+        <div class="icon-circle"><i class="fas fa-sync-alt"></i></div>
         <div class="message-content">
             <strong>Update Complete!</strong>
             <span>The reservation details have been updated successfully in the system.</span>
+        </div>
+    </div>
+    <% } else if ("deleted".equals(msg)) { %>
+    <div class="alert-box danger">
+        <div class="icon-circle"><i class="fas fa-trash-alt"></i></div>
+        <div class="message-content">
+            <strong>Booking Deleted!</strong>
+            <span>The reservation has been permanently removed from the system.</span>
         </div>
     </div>
     <% } %>
