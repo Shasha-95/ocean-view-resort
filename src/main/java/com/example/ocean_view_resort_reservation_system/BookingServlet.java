@@ -55,6 +55,7 @@ public class BookingServlet extends HttpServlet {
                     ps.setInt(7, Integer.parseInt(request.getParameter("reservation_number")));
 
                     ps.executeUpdate();
+                    // CRITICAL: Triggers the "Update Complete" alert on the dashboard
                     response.sendRedirect("staff_dash.jsp?msg=updated");
                 }
             }

@@ -46,11 +46,8 @@
             border: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* --- SUCCESS ALERT STYLES --- */
-        .booking-success {
-            background: #e6fffa;
-            border: 1px solid #38b2ac;
-            border-left: 6px solid #319795;
+        /* --- ALERT STYLES --- */
+        .booking-success, .update-success {
             padding: 20px;
             margin-bottom: 25px;
             border-radius: 12px;
@@ -58,12 +55,26 @@
             align-items: center;
             text-align: left;
             gap: 15px;
-            color: #234e52;
             animation: fadeInDown 0.6s ease-out;
         }
 
-        .icon-circle {
-            background: #319795;
+        /* Register Success (Green) */
+        .booking-success {
+            background: #e6fffa;
+            border: 1px solid #38b2ac;
+            border-left: 6px solid #319795;
+            color: #234e52;
+        }
+
+        /* Update Success (Blue) */
+        .update-success {
+            background: #ebf8ff;
+            border: 1px solid #4299e1;
+            border-left: 6px solid #2b6cb0;
+            color: #2c5282;
+        }
+
+        .icon-circle, .icon-circle-blue {
             color: white;
             min-width: 40px;
             height: 40px;
@@ -73,6 +84,9 @@
             justify-content: center;
             font-size: 1.2rem;
         }
+
+        .icon-circle { background: #319795; }
+        .icon-circle-blue { background: #2b6cb0; }
 
         .message-content {
             display: flex;
@@ -182,18 +196,24 @@
 
 <div class="staff-container">
 
-    <%-- Success Message Alert for New Reservations --%>
+    <%-- Success Message Logic --%>
     <%
         String msg = request.getParameter("msg");
         if ("success".equals(msg)) {
     %>
     <div class="booking-success">
-        <div class="icon-circle">
-            <i class="fas fa-check"></i>
-        </div>
+        <div class="icon-circle"><i class="fas fa-check"></i></div>
         <div class="message-content">
             <strong>Reservation Confirmed!</strong>
             <span>The guest has been successfully added to the Ocean View Resort database.</span>
+        </div>
+    </div>
+    <% } else if ("updated".equals(msg)) { %>
+    <div class="update-success">
+        <div class="icon-circle-blue"><i class="fas fa-sync-alt"></i></div>
+        <div class="message-content">
+            <strong>Update Complete!</strong>
+            <span>The reservation details have been updated successfully in the system.</span>
         </div>
     </div>
     <% } %>
