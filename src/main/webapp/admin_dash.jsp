@@ -9,6 +9,9 @@
             --accent-gold: #c5a059;
             --bg-light: #f4f7f6;
             --white: #ffffff;
+            --success-green: #28a745;
+            --success-bg: #d4edda;
+            --success-text: #155724;
         }
 
         body {
@@ -18,7 +21,6 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            /* Updated to include the faded background image */
             background: linear-gradient(rgba(244, 247, 246, 0.85), rgba(244, 247, 246, 0.85)),
             url('images/oceanviewr.jpg');
             background-size: cover;
@@ -27,11 +29,9 @@
         }
 
         .admin-container {
-            /* Glassmorphism effect: Semi-transparent white with blur */
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
@@ -39,6 +39,27 @@
             max-width: 850px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Success Alert Styles */
+        .success-alert {
+            background-color: var(--success-bg);
+            color: var(--success-text);
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            border-left: 5px solid var(--success-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 600;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         h2 {
@@ -134,6 +155,17 @@
 <body>
 
 <div class="admin-container">
+    <%-- Success Message Alert Detection --%>
+    <%
+        String msg = request.getParameter("msg");
+        if ("staff_added".equals(msg)) {
+    %>
+    <div class="success-alert">
+        <i class="fas fa-check-circle"></i>
+        New staff member has been registered successfully!
+    </div>
+    <% } %>
+
     <h2><i class="fas fa-hotel"></i> Ocean View Resort</h2>
     <div class="subtitle">System Administrator Management Portal</div>
 
