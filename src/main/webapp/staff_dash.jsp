@@ -46,6 +46,47 @@
             border: 1px solid rgba(255,255,255,0.3);
         }
 
+        /* --- SUCCESS ALERT STYLES --- */
+        .booking-success {
+            background: #e6fffa;
+            border: 1px solid #38b2ac;
+            border-left: 6px solid #319795;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            gap: 15px;
+            color: #234e52;
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        .icon-circle {
+            background: #319795;
+            color: white;
+            min-width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .message-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message-content strong { font-size: 1.1rem; }
+        .message-content span { font-size: 0.9rem; opacity: 0.9; }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         h2 {
             color: var(--ocean-blue);
             margin-bottom: 10px;
@@ -98,7 +139,6 @@
             text-transform: capitalize;
         }
 
-        /* Hover Effects */
         .btn-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 12px 25px rgba(0,51,102,0.2);
@@ -111,7 +151,6 @@
             transform: scale(1.1);
         }
 
-        /* Red hover specifically for Delete */
         .btn-card.delete-action:hover {
             background-color: var(--danger-red);
         }
@@ -142,6 +181,23 @@
 <body>
 
 <div class="staff-container">
+
+    <%-- Success Message Alert for New Reservations --%>
+    <%
+        String msg = request.getParameter("msg");
+        if ("success".equals(msg)) {
+    %>
+    <div class="booking-success">
+        <div class="icon-circle">
+            <i class="fas fa-check"></i>
+        </div>
+        <div class="message-content">
+            <strong>Reservation Confirmed!</strong>
+            <span>The guest has been successfully added to the Ocean View Resort database.</span>
+        </div>
+    </div>
+    <% } %>
+
     <h2><i class="fas fa-concierge-bell"></i> Staff Portal</h2>
     <p class="welcome-text">Logged in as: <strong>${userFullName}</strong></p>
 

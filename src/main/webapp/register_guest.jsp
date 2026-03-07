@@ -4,12 +4,12 @@
 <head>
     <title>Guest Registration | Ocean View Resort</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
     <style>
         body {
             display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;
             background: linear-gradient(rgba(244, 247, 246, 0.85), rgba(244, 247, 246, 0.85)), url('images/oceanviewr.jpg');
             background-size: cover; background-position: center; background-attachment: fixed;
+            font-family: 'Segoe UI', sans-serif;
         }
         .registration-card {
             background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px);
@@ -20,12 +20,12 @@
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; }
         .full-width { grid-column: span 2; }
         label { font-weight: 700; color: #003366; font-size: 0.85rem; display: block; margin-bottom: 5px; }
-        input, select { padding: 12px; border: 1px solid #ccc; border-radius: 8px; width: 100%; font-size: 1rem; }
+        input, select { padding: 12px; border: 1px solid #ccc; border-radius: 8px; width: 100%; font-size: 1rem; box-sizing: border-box; }
         .btn-register {
             background: #003366; color: white; border: none; padding: 15px; width: 100%;
             border-radius: 8px; margin-top: 30px; cursor: pointer; font-weight: bold; font-size: 1.1rem;
         }
-        .btn-register:hover { background: #00509d; transform: translateY(-2px); transition: 0.3s; }
+        .btn-register:hover { background: #c5a059; transform: translateY(-2px); transition: 0.3s; }
     </style>
 </head>
 <body>
@@ -40,22 +40,22 @@
         <div class="form-grid">
             <div class="full-width">
                 <label>Guest Full Name</label>
-                <input type="text" name="guest_name" placeholder="" required>
+                <input type="text" name="guest_name" required>
             </div>
 
             <div class="full-width">
                 <label>Address</label>
-                <input type="text" name="address" placeholder="" required>
+                <input type="text" name="address" required>
             </div>
 
             <div>
                 <label>Country</label>
-                <input type="text" name="country" placeholder="" required>
+                <input type="text" name="country" required>
             </div>
 
             <div>
                 <label>Contact Number</label>
-                <input type="tel" name="contact" placeholder="  " required>
+                <input type="tel" name="contact" required>
             </div>
 
             <div class="full-width">
@@ -63,17 +63,21 @@
                 <select name="room_type_id" required>
                     <option value="">-- Select Room Type --</option>
                     <%
+                        // Updated to match your schema: room_type_name and price
                         try (Connection conn = DBConnection.getConnection();
                              Statement stmt = conn.createStatement();
                              ResultSet rs = stmt.executeQuery("SELECT * FROM room_types")) {
                             while(rs.next()) {
                     %>
                     <option value="<%= rs.getInt("room_type_id") %>">
-                        <%= rs.getString("type_name") %> (LKR <%= rs.getDouble("price_per_night") %>)
+                        <%= rs.getString("room_type_name") %> (LKR <%= rs.getDouble("price") %>)
                     </option>
                     <%
                             }
-                        } catch(Exception e) { e.printStackTrace(); }
+                        } catch(Exception e) {
+                            e.printStackTrace();
+                            out.println("<option>Error loading rooms</option>");
+                        }
                     %>
                 </select>
             </div>
